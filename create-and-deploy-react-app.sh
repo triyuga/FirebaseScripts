@@ -34,6 +34,8 @@ firebase login
 if [ ! -f "firebase.json" ]; then # if file "firebase.json" not exists, initialise firebase
     firebase init
     # === Firebase Init Wizard
+    # ? Select a default Firebase project for this directory:
+    # -> Create project OR Use exisiting project
     # ? Which Firebase features do you want to set up for this directory? Press Space to select features, then Enter to confirm your choices. 
     # -> Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys
     # ? What do you want to use as your public directory? 
