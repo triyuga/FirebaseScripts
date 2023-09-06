@@ -4,30 +4,46 @@
 # ./create-and-deploy-react-app.sh
 
 # Make executable:
-# chmod x create-and-deploy-react-app.sh
+# chmod u+x create-and-deploy-react-app.sh
 
 mkdir -p sandbox
+
 cd sandbox
-[ ! -d "my-app" ] && npx create-react-app my-app --template typescript # create my-app, if not exists
+
+if [ ! -d "my-app" ]; then
+    # create my-app, if not exists
+    npx create-react-app my-app --template typescript
+fi
+
 cd my-app
+
 # npm start
+
 npm run build
-npm list -g | grep firebase-tools || npm install -g firebase-tools # install firebase-tools, if not installed
+
+if [[ ! $(npm list -g | grep firebase-tools) ]]; then
+    # install firebase-tools, if not installed
+    echo "Installing firebase-tools"
+    npm install -g firebase-tools
+fi
+
+echo "Using firebase-tools version" $(firebase --version)
+
 firebase login
-[ ! -f "firebase.json" ] && firebase init # initialize firebase, if firebase.json not exists
-# Firebase init wizard options:
-# - Which Firebase features do you want to set up for this directory?
-#   - Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys
-# - Please select an option: (Use arrow keys)
-#   - Create a new project OR Use an existing project
-# - What do you want to use as your public directory?
-#   - build
-# - Configure as a single-page app (rewrite all urls to /index.html)?
-#   - y
-# - Configure as a single-page app (rewrite all urls to /index.html)?
-#   - y
-# - Set up automatic builds and deploys with GitHub?
-#   - n
-# - File build/index.html already exists. Overwrite?
-#   - n
+
+if [ ! -f "firebase.json" ]; then # if file "firebase.json" not exists, initialise firebase
+    firebase init
+    # === Firebase Init Wizard
+    # ? Which Firebase features do you want to set up for this directory? Press Space to select features, then Enter to confirm your choices. 
+    # -> Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys
+    # ? What do you want to use as your public directory? 
+    # -> build
+    # ? Configure as a single-page app (rewrite all urls to /index.html)?
+    # -> Yes
+    # ? Set up automatic builds and deploys with GitHub?
+    # -> No
+    # ? File build/index.html already exists. Overwrite? 
+    # -> No
+fi
+
 firebase deploy
