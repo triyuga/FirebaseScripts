@@ -14,7 +14,7 @@ mkdir -p $SANDBOX_DIR
 (
     cd $SANDBOX_DIR
     if [ ! -d $APP_DIR ]; then
-        # create my-app, if not exists
+        # create-react-app, if not exists
         npx create-react-app $APP_DIR --template typescript
     fi
     (

@@ -4,7 +4,7 @@
 # ./scripts/create-and-deploy-functions.sh
 
 # Make executable from root with:
-# chmod u+x scripts/create-and-deploy-react-app.sh
+# chmod u+x scripts/create-and-deploy-functions.sh
 
 SANDBOX_DIR="sandbox"
 FUNCTIONS_DIR="functions"
@@ -14,7 +14,7 @@ mkdir -p $SANDBOX_DIR
 (
     cd $SANDBOX_DIR
     if [ ! -d $FUNCTIONS_DIR ]; then
-        # create my-functions, if not exists
+        # create functions, if not exists
         firebase init functions
         cp -fr ../templates/functions/index.ts ./functions/src/index.ts
     fi
